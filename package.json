@@ -1,0 +1,46 @@
+{
+  "name": "@e2fyi/streams",
+  "version": "0.0.0",
+  "description":
+    "Nodejs stream library for various use cases: e.g. Auto-tagging object streams, streaming to mongoDb via mongoose models, etc.",
+  "main": "index.js",
+  "scripts": {
+    "version": "npm run build && git add .",
+    "pretest": "npx eslint *.js src/*.js",
+    "test": "nyc --reporter=html --reporter=text mocha",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "docs": "npx jsdoc -c jsdoc.json -d ./docs index.js src/*.js",
+    "md":
+      "npx jsdoc2md --template README.hbs --files index.js src/*.js > README.md",
+    "build": "npm run docs && npm run md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/e2fyi/streams.git"
+  },
+  "keywords": ["stream", "mongoose", "mongodb", "auto-tagger", "transform"],
+  "author": "eterna2 <eterna2@hotmail.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/e2fyi/streams/issues"
+  },
+  "homepage": "https://github.com/e2fyi/streams#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "coveralls": "^3.0.0",
+    "eslint": "^4.9.0",
+    "eslint-config-google": "^0.7.0",
+    "eslint-config-prettier": "^2.5.0",
+    "eslint-plugin-prettier": "^2.3.1",
+    "istanbul": "^0.4.5",
+    "jsdoc": "^3.5.5",
+    "jsdoc-to-markdown": "^3.0.2",
+    "mocha": "^4.0.1",
+    "np": "^2.18.2",
+    "nyc": "^11.3.0",
+    "prettier": "^1.7.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

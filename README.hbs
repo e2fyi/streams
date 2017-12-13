@@ -1,0 +1,45 @@
+@e2fyi/streams
+======================
+[![GitHub release](https://img.shields.io/github/release/e2fyi/streams.svg)](https://github.com/e2fyi/streams/releases)
+[![Build Status](https://travis-ci.org/e2fyi/streams.svg?branch=master)](https://travis-ci.org/e2fyi/streams)
+[![Coverage Status](https://coveralls.io/repos/github/e2fyi/streams/badge.svg?branch=master)](https://coveralls.io/github/e2fyi/streams?branch=master)
+[![Known Vulnerabilities](https://snyk.io/test/github/e2fyi/streams/badge.svg)](https://snyk.io/test/github/e2fyi/streams)
+[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+
+This NodeJS library provides custom [NodeJS streams](https://nodejs.org/api/stream.html)
+for specific use cases.
+
+Currently, the following streams are available:
+
+- [`DocumentTagger`](#module_@e2fyi/streams.DocumentTagger): A Transform stream to tag an auto-increment field to each object in the stream. Can also mutate the stream objects through a function or default Object.
+
+- [`MongooseStream`](#module_@e2fyi/streams.MongooseStream): A Transform stream which will bulk write the objects in the stream to mongodb via a [mongoose model](http://mongoosejs.com/docs/models.html).
+
+## ChangeLog
+- v1.0.0: new streams: `DocumentTagger`, `MongooseStream`.
+
+## Quick start
+Using CommonJS module
+```js
+// importing DocumentTagger and MongooseStream
+const {DocumentTagger, MongooseStream} = require('@e2fyi/streams');
+```
+
+## API reference
+The API documentation is also available at [https://e2fyi.github.io/streams](https://e2fyi.github.io/streams).
+
+{{#modules}}
+  {{>docs}}
+{{/modules}}
+
+## Development
+
+Unit testing
+```
+npm test
+```
+
+Build documentation
+```
+npm run build
+```
