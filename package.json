@@ -1,6 +1,6 @@
 {
   "name": "@e2fyi/streams",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Nodejs stream library for various use cases: e.g. Auto-tagging object streams, streaming to mongoDb via mongoose models, etc.",
   "main": "index.js",
   "scripts": {
