@@ -49,6 +49,7 @@ the stream.
 
 **Kind**: static class of [<code>@e2fyi/streams</code>](#module_@e2fyi/streams)  
 **Extends**: <code>stream.Transform</code>  
+**Emits**: [<code>filtered</code>](#DocumentTagger+event_filtered)  
 <a name="new_module_@e2fyi/streams.DocumentTagger_new"></a>
 
 #### new DocumentTagger(opts)
@@ -76,6 +77,7 @@ A custom NodeJS Transform stream to mongo via mongoose.
 
 **Kind**: static class of [<code>@e2fyi/streams</code>](#module_@e2fyi/streams)  
 **Extends**: <code>stream.Transform</code>  
+**Emits**: [<code>mongoose-bulk-write</code>](#MongooseStream+event_mongoose-bulk-write)  
 <a name="new_module_@e2fyi/streams.MongooseStream_new"></a>
 
 #### new MongooseStream(opts)
@@ -105,6 +107,10 @@ Settings for DocumentTagger.
 | Name | Type | Description |
 | --- | --- | --- |
 | autoIncrement | <code>String</code> | The auto-increment field to tag onto the stream object. |
+| ignoreNonObject | <code>Boolean</code> | If `true`, no errors will be emitted when the chunk in the stream cannot be parsed into `Object`. |
+| readableObjectMode | <code>Boolean</code> | If `true`, `Object` will be emitted from the stream, otherwise a `String` or `Buffer` representation or will emitted instead. |
+| objectMode | <code>Boolean</code> | If `true`, `Object` will be emitted from the stream, otherwise a `String` or `Buffer` representation or will emitted instead. Overwrites `writableObjectMode`. |
+| filter | <code>function</code> | Function to filter the objects in the stream. Return `true` to keep the object. |
 | mutate | <code>function</code> \| <code>Object</code> | Function or Object to mutate the stream. If an Object is provided, each stream object will be mutated with the `Object.assign(streamObj, mutateObj)`. |
 
 <a name="module_@e2fyi/streams.MongooseStreamSettings"></a>
@@ -118,6 +124,7 @@ Settings for MongooseStream.
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
 | itemWaterMark | <code>Number</code> | <code>50</code> | The number of item collected before writing to mongodb. |
+| passThrough | <code>Boolean</code> |  | If `false` nothing will be emitted from the stream. |
 | model | <code>mongoose.Model</code> |  | [mongoose Model](http://mongoosejs.com/docs/models.html). |
 
 

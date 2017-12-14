@@ -1,8 +1,7 @@
 {
   "name": "@e2fyi/streams",
   "version": "1.0.0",
-  "description":
-    "Nodejs stream library for various use cases: e.g. Auto-tagging object streams, streaming to mongoDb via mongoose models, etc.",
+  "description": "Nodejs stream library for various use cases: e.g. Auto-tagging object streams, streaming to mongoDb via mongoose models, etc.",
   "main": "index.js",
   "scripts": {
     "version": "npm run build && git add .",
@@ -10,15 +9,20 @@
     "test": "nyc --reporter=html --reporter=text mocha",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "docs": "npx jsdoc -c jsdoc.json -d ./docs index.js src/*.js",
-    "md":
-      "npx jsdoc2md --template README.hbs --files index.js src/*.js > README.md",
+    "md": "npx jsdoc2md --template README.hbs --files index.js src/*.js > README.md",
     "build": "npm run docs && npm run md"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/e2fyi/streams.git"
   },
-  "keywords": ["stream", "mongoose", "mongodb", "auto-tagger", "transform"],
+  "keywords": [
+    "stream",
+    "mongoose",
+    "mongodb",
+    "auto-tagger",
+    "transform"
+  ],
   "author": "eterna2 <eterna2@hotmail.com>",
   "license": "Apache-2.0",
   "bugs": {
@@ -38,7 +42,9 @@
     "mocha": "^4.0.1",
     "np": "^2.18.2",
     "nyc": "^11.3.0",
-    "prettier": "^1.7.0"
+    "prettier": "^1.7.0",
+    "sinon": "^4.1.3",
+    "sinon-chai": "^2.14.0"
   },
   "publishConfig": {
     "access": "public"

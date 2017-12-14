@@ -1,4 +1,4 @@
-`use strict`;
+'use strict';
 const {Transform} = require('stream');
 const defaultOpts = {objectMode: true, itemWaterMark: 50};
 
@@ -8,13 +8,22 @@ const defaultOpts = {objectMode: true, itemWaterMark: 50};
  * @alias MongooseStreamSettings
  * @typedef {Object} MongooseStreamSettings
  * @property {Number} [itemWaterMark=50] - The number of item collected before writing to mongodb.
+ * @property {Boolean} passThrough - If `false` nothing will be emitted from the stream.
  * @property {mongoose.Model} model - [mongoose Model]{@link http://mongoosejs.com/docs/models.html}.
+ */
+
+/**
+ * `mongoose-bulk-write` event. Emits the response from the bulkWrite via mongoose.
+ *
+ * @event MongooseStream#mongoose-bulk-write
+ * @type {object}
  */
 
 /**
  * A custom NodeJS Transform stream to mongo via mongoose.
  * @memberof module:@e2fyi/streams
  * @extends stream.Transform
+ * @fires MongooseStream#mongoose-bulk-write
  * @example
  * var stream2mongo = new MongooseStream({mode: SomeMongooseModel});
  * someReadableStreamFromArray([{text: 'abc'}, {text: 'efg'}])
@@ -32,33 +41,46 @@ class MongooseStream extends Transform {
     super(opts);
     this.itemWaterMark = opts.itemWaterMark;
     this.model = opts.model;
+    this._passThrough_ = opts.passThrough;
     this._stack_ = [];
     if (!opts.model) {
       throw new Error('Mongoose Model must be defined!');
     }
   }
   _transform(chunk, encoding, callback) {
+    // termination chunk
+    if (!chunk) {
+      this.push(chunk);
+    } else if (this._passThrough_) {
+      this.push(chunk);
+    }
     if (chunk) {
       this._stack_.push({insertOne: {document: chunk}});
       if (this._stack_.length >= this.itemWaterMark) {
         let job = this._stack_;
         this._stack_ = [];
-        return this.model.bulkWrite(job, err => {
-          callback(err, chunk);
+        return this.model.bulkWrite(job, (error, res) => {
+          this.emit('mongoose-bulk-write', res);
+          if (error) callback(error);
+          else callback();
         });
       }
     }
-    callback(null, chunk);
+    callback();
   }
   _flush(callback) {
     if (this._stack_.length > 0) {
       let job = this._stack_;
       this._stack_ = [];
-      return this.model.bulkWrite(job, err => {
-        callback(err, '\0');
+      return this.model.bulkWrite(job, (error, res) => {
+        this.emit('mongoose-bulk-write', res);
+        this.push(null);
+        if (error) callback(error);
+        else callback();
       });
     }
-    callback(null, '\0');
+    this.push(null);
+    callback();
   }
 }
 
