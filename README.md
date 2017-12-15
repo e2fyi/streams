@@ -26,7 +26,7 @@ const {DocumentTagger, MongooseStream} = require('@e2fyi/streams');
 ```
 
 ## API reference
-The API documentation is also available at [https://e2fyi.github.io/streams](https://e2fyi.github.io/streams).
+The API documentation is also available at [https://e2fyi.github.io/streams/](https://e2fyi.github.io/streams/).
 
   <a name="module_@e2fyi/streams"></a>
 
